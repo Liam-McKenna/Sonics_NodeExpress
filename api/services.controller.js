@@ -13,13 +13,11 @@ export default class ServicesController {
     if (req.query.serviceName) {
       filters.serviceName = req.query.serviceName;
     }
-
     const { servicesList, totalNumServices } = await ServicesDAO.getServices({
       filters,
       page,
       servicesPerPage,
     });
-
     let response = {
       services: servicesList,
       page: page,
@@ -27,7 +25,6 @@ export default class ServicesController {
       entries_per_page: servicesPerPage,
       total_results: totalNumServices,
     };
-
     res.json(response);
   }
   ////
@@ -40,7 +37,6 @@ export default class ServicesController {
       const ServiceThumbnail = req.body.ServiceThumbnail;
       const ServiceGallery = req.body.ServiceGallery;
       const date = new Date();
-
       const Service = await ServicesDAO.addService(
         serviceName,
         serviceText,
