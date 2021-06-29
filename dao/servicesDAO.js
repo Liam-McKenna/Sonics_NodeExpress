@@ -28,8 +28,8 @@ export default class ServicesDAO {
   } = {}) {
     let query;
     if (filters) {
-      if ("serviceName" in filters) {
-        query = { serviceName: filters["serviceName"] };
+      if ("name" in filters) {
+        query = { name: filters["name"] };
       }
     }
 
@@ -69,10 +69,10 @@ export default class ServicesDAO {
   ) {
     try {
       const serviceDoc = {
-        serviceName: serviceNameArg,
-        serviceText: serviceTextArg,
-        ServiceThumbnail: ServiceThumbnailArg,
-        ServiceGallery: ServiceGalleryArg,
+        name: serviceNameArg,
+        text: serviceTextArg,
+        yhumbnail: ServiceThumbnailArg,
+        gallery: ServiceGalleryArg,
         date: dateArg,
       };
 
@@ -97,10 +97,10 @@ export default class ServicesDAO {
         { _id: ObjectId(serviceId) },
         {
           $set: {
-            serviceName: serviceNameArg,
-            serviceText: serviceTextArg,
-            ServiceThumbnail: ServiceThumbnailArg,
-            ServiceGallery: ServiceGalleryArg,
+            name: serviceNameArg,
+            text: serviceTextArg,
+            thumbnail: ServiceThumbnailArg,
+            gallery: ServiceGalleryArg,
             update_date: dateArg,
           },
         }

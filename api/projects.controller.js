@@ -10,8 +10,8 @@ export default class ProjectsController {
       : 20;
     const page = req.query.page ? parseInt(req.query.page, 10) : 0;
     let filters = {};
-    if (req.query.projectName) {
-      filters.projectName = req.query.projectName;
+    if (req.query.name) {
+      filters.name = req.query.name;
     }
     const { projectsList, totalNumProjects } = await ProjectsDAO.getProjects({
       filters,

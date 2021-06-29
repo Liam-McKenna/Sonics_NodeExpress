@@ -10,8 +10,8 @@ export default class ServicesController {
       : 20;
     const page = req.query.page ? parseInt(req.query.page, 10) : 0;
     let filters = {};
-    if (req.query.serviceName) {
-      filters.serviceName = req.query.serviceName;
+    if (req.query.name) {
+      filters.name = req.query.name;
     }
     const { servicesList, totalNumServices } = await ServicesDAO.getServices({
       filters,
@@ -32,16 +32,12 @@ export default class ServicesController {
   ////
   static async apiPostServices(req, res, next) {
     try {
-      const serviceName = req.body.serviceName;
-      const serviceText = req.body.serviceText;
-      const ServiceThumbnail = req.body.ServiceThumbnail;
-      const ServiceGallery = req.body.ServiceGallery;
       const date = new Date();
       const Service = await ServicesDAO.addService(
-        serviceName,
-        serviceText,
-        ServiceThumbnail,
-        ServiceGallery,
+        req.body.name,
+        req.body.text,
+        req.body.thumbnail,
+        req.body.gallery,
         date
       );
       res.json({ status: "Success" });
@@ -54,19 +50,13 @@ export default class ServicesController {
   ////
   static async apiPutServices(req, res, next) {
     try {
-      const serviceId = req.body.service_id;
-      const serviceName = req.body.serviceName;
-      const serviceText = req.body.serviceText;
-      const ServiceThumbnail = req.body.ServiceThumbnail;
-      const ServiceGallery = req.body.ServiceGallery;
       const date = new Date();
-
       const Service = await ServicesDAO.updateService(
-        serviceId,
-        serviceName,
-        serviceText,
-        ServiceThumbnail,
-        ServiceGallery,
+        req.body.service_id,
+        req.body.name,
+        req.body.text,
+        req.body.thumbnail,
+        req.body.gallery,
         date
       );
       res.json({ status: "Success" });
@@ -79,9 +69,7 @@ export default class ServicesController {
   ////
   static async apiDeleteServices(req, res, next) {
     try {
-      const serviceId = req.body.service_id;
-
-      const Service = await ServicesDAO.deleteService(serviceId);
+      const Service = await ServicesDAO.deleteService(req.body.service_id);
       res.json({ status: "Success" });
     } catch (e) {
       res.status(500).json({ error: e.message });

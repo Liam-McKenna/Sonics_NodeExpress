@@ -28,8 +28,8 @@ export default class ProjectsDAO {
   } = {}) {
     let query;
     if (filters) {
-      if ("projectName" in filters) {
-        query = { projectName: filters["projectName"] };
+      if ("name" in filters) {
+        query = { name: filters["name"] };
       }
     }
 
